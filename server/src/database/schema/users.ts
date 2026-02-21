@@ -1,5 +1,4 @@
 import { sqliteTable, text, integer, index, uniqueIndex } from 'drizzle-orm/sqlite-core';
-import { generateUUIDv7 } from '../../lib/uuid';
 import { workspaces } from './workspaces';
 
 export const users = sqliteTable('users', {

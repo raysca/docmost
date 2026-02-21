@@ -1,6 +1,5 @@
 import { sqliteTable, text, index } from 'drizzle-orm/sqlite-core';
 import type { AnySQLiteColumn } from 'drizzle-orm/sqlite-core';
-import { generateUUIDv7 } from '../../lib/uuid';
 import { workspaces } from './workspaces';
 import { spaces } from './spaces';
 import { pages } from './pages';

@@ -1,5 +1,4 @@
 import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core';
-import { generateUUIDv7 } from '../../lib/uuid';
 
 // Persistent job queue for critical background tasks (email, etc.)
 export const jobs = sqliteTable('_jobs', {

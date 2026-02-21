@@ -1,5 +1,4 @@
 import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core';
-import { generateUUIDv7 } from '../../lib/uuid';
 import { workspaces } from './workspaces';
 import { users } from './users';
 

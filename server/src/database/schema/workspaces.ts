@@ -1,5 +1,4 @@
 import { sqliteTable, text, integer, index, uniqueIndex } from 'drizzle-orm/sqlite-core';
-import { generateUUIDv7 } from '../../lib/uuid';
 
 export const workspaces = sqliteTable('workspaces', {
   id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
