@@ -21,10 +21,5 @@ sqlite.run('PRAGMA foreign_keys = ON');
 sqlite.run('PRAGMA busy_timeout = 5000');
 sqlite.run('PRAGMA mmap_size = 30000000000');
 
-// Register custom unaccent function for search (replaces PostgreSQL f_unaccent)
-sqlite.function('unaccent', (str: string) => {
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-});
-
 export const db = drizzle(sqlite, { schema });
 export { sqlite };
