@@ -7,7 +7,7 @@ import { pages } from './pages';
 import { users } from './users';
 
 export const comments = sqliteTable('comments', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   content: text('content', { mode: 'json' }),
   selection: text('selection'),
   type: text('type'),

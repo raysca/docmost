@@ -1,12 +1,11 @@
 import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core';
-import { generateUUIDv7 } from '../../lib/uuid';
 import { workspaces } from './workspaces';
 import { spaces } from './spaces';
 import { pages } from './pages';
 import { users } from './users';
 
 export const attachments = sqliteTable('attachments', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   fileName: text('file_name').notNull(),
   filePath: text('file_path').notNull(),
   fileSize: integer('file_size'),
@@ -29,7 +28,7 @@ export const attachments = sqliteTable('attachments', {
 ]);
 
 export const fileTasks = sqliteTable('file_tasks', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   type: text('type'),
   status: text('status').default('pending'),
   fileName: text('file_name').notNull(),

@@ -7,7 +7,7 @@ import { users } from './users';
 import { comments } from './comments';
 
 export const notifications = sqliteTable('notifications', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   userId: text('user_id').notNull().references(() => users.id),
   type: text('type').notNull(),
   actorId: text('actor_id').references(() => users.id),
@@ -27,7 +27,7 @@ export const notifications = sqliteTable('notifications', {
 ]);
 
 export const watchers = sqliteTable('watchers', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   userId: text('user_id').notNull().references(() => users.id),
   pageId: text('page_id').references(() => pages.id),
   spaceId: text('space_id').notNull().references(() => spaces.id),

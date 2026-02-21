@@ -4,7 +4,7 @@ import { workspaces } from './workspaces';
 import { users } from './users';
 
 export const authProviders = sqliteTable('auth_providers', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   type: text('type').notNull(),
   name: text('name').notNull(),
   settings: text('settings', { mode: 'json' }),
@@ -39,7 +39,7 @@ export const authProviders = sqliteTable('auth_providers', {
 ]);
 
 export const authAccounts = sqliteTable('auth_accounts', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   userId: text('user_id').notNull().references(() => users.id),
   authProviderId: text('auth_provider_id').references(() => authProviders.id),
   providerUserId: text('provider_user_id').notNull(),

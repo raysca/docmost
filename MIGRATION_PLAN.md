@@ -249,7 +249,7 @@ Column type mapping from the existing PostgreSQL schema:
 
 | PostgreSQL Feature | SQLite/Drizzle Equivalent |
 |---|---|
-| `uuid` primary key (v7) | `text('id').primaryKey().$defaultFn(() => generateUUIDv7())` |
+| `uuid` primary key (v7) | `text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7())` |
 | `timestamp` / `timestamptz` | `text('created_at').$defaultFn(() => new Date().toISOString())` |
 | `jsonb` columns | `text('content', { mode: 'json' })` |
 | `text[]` (arrays) | `text('items', { mode: 'json' })` — store as JSON array |
@@ -288,7 +288,7 @@ import { workspaces } from './workspaces';
 import { generateUUIDv7 } from '../lib/uuid';
 
 export const pages = sqliteTable('pages', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   title: text('title'),
   slugId: text('slug_id').notNull(),
   content: text('content', { mode: 'json' }),
@@ -317,7 +317,7 @@ export const pages = sqliteTable('pages', {
 ]);
 
 export const pageHistory = sqliteTable('page_history', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   pageId: text('page_id').notNull().references(() => pages.id),
   title: text('title'),
   content: text('content', { mode: 'json' }),
@@ -330,7 +330,7 @@ export const pageHistory = sqliteTable('page_history', {
 });
 
 export const backlinks = sqliteTable('backlinks', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   sourcePageId: text('source_page_id').notNull().references(() => pages.id),
   targetPageId: text('target_page_id').notNull().references(() => pages.id),
   workspaceId: text('workspace_id').notNull().references(() => workspaces.id),
@@ -659,7 +659,7 @@ app.post('/api/attachments/upload', authMiddleware, async (c) => {
   const formData = await c.req.formData();
   const file = formData.get('file') as File;
   const buffer = await file.arrayBuffer();
-  const filename = `${generateUUIDv7()}-${file.name}`;
+  const filename = `${Bun.randomUUIDv7()}-${file.name}`;
   await Bun.write(`./data/storage/${filename}`, buffer);
   // save metadata to attachments table
 });

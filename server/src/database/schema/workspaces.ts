@@ -2,7 +2,7 @@ import { sqliteTable, text, integer, index, uniqueIndex } from 'drizzle-orm/sqli
 import { generateUUIDv7 } from '../../lib/uuid';
 
 export const workspaces = sqliteTable('workspaces', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   name: text('name'),
   description: text('description'),
   logo: text('logo'),
@@ -29,7 +29,7 @@ export const workspaces = sqliteTable('workspaces', {
 ]);
 
 export const workspaceInvitations = sqliteTable('workspace_invitations', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   email: text('email'),
   role: text('role').notNull().default('member'),
   token: text('token').notNull(),

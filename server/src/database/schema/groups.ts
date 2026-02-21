@@ -4,7 +4,7 @@ import { workspaces } from './workspaces';
 import { users } from './users';
 
 export const groups = sqliteTable('groups', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   name: text('name').notNull(),
   description: text('description'),
   isDefault: integer('is_default', { mode: 'boolean' }).notNull().default(false),
@@ -19,7 +19,7 @@ export const groups = sqliteTable('groups', {
 ]);
 
 export const groupUsers = sqliteTable('group_users', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   groupId: text('group_id').notNull().references(() => groups.id),
   userId: text('user_id').notNull().references(() => users.id),
   createdAt: text('created_at').$defaultFn(() => new Date().toISOString()),

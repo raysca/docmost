@@ -5,7 +5,7 @@ import { users } from './users';
 import { groups } from './groups';
 
 export const spaces = sqliteTable('spaces', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   name: text('name'),
   slug: text('slug').notNull(),
   description: text('description'),
@@ -24,7 +24,7 @@ export const spaces = sqliteTable('spaces', {
 ]);
 
 export const spaceMembers = sqliteTable('space_members', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   userId: text('user_id').references(() => users.id),
   groupId: text('group_id').references(() => groups.id),
   role: text('role').notNull().default('member'),

@@ -1,10 +1,9 @@
 import { sqliteTable, text, index } from 'drizzle-orm/sqlite-core';
-import { generateUUIDv7 } from '../../lib/uuid';
 import { workspaces } from './workspaces';
 import { users } from './users';
 
 export const apiKeys = sqliteTable('api_keys', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   name: text('name'),
   // The hashed key value — never stored in plaintext
   key: text('key').notNull(),

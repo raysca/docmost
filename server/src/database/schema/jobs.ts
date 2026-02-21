@@ -3,7 +3,7 @@ import { generateUUIDv7 } from '../../lib/uuid';
 
 // Persistent job queue for critical background tasks (email, etc.)
 export const jobs = sqliteTable('_jobs', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   name: text('name').notNull(),
   payload: text('payload', { mode: 'json' }),
   status: text('status').notNull().default('pending'), // pending | processing | completed | failed

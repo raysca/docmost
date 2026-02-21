@@ -3,7 +3,7 @@ import { generateUUIDv7 } from '../../lib/uuid';
 import { workspaces } from './workspaces';
 
 export const users = sqliteTable('users', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   email: text('email').notNull(),
   name: text('name'),
   password: text('password'),
@@ -28,7 +28,7 @@ export const users = sqliteTable('users', {
 ]);
 
 export const userTokens = sqliteTable('user_tokens', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   token: text('token').notNull(),
   type: text('type').notNull(),
   userId: text('user_id').notNull().references(() => users.id),
@@ -42,7 +42,7 @@ export const userTokens = sqliteTable('user_tokens', {
 ]);
 
 export const userMfa = sqliteTable('user_mfa', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   userId: text('user_id').notNull().references(() => users.id),
   method: text('method').notNull().default('totp'),
   secret: text('secret'),

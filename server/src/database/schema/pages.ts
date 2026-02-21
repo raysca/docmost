@@ -6,7 +6,7 @@ import { spaces } from './spaces';
 import { users } from './users';
 
 export const pages = sqliteTable('pages', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   slugId: text('slug_id').notNull(),
   title: text('title'),
   icon: text('icon'),
@@ -35,7 +35,7 @@ export const pages = sqliteTable('pages', {
 ]);
 
 export const pageHistory = sqliteTable('page_history', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   pageId: text('page_id').notNull().references(() => pages.id),
   title: text('title'),
   icon: text('icon'),
@@ -58,7 +58,7 @@ export const pageHistory = sqliteTable('page_history', {
 ]);
 
 export const backlinks = sqliteTable('backlinks', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   sourcePageId: text('source_page_id').notNull().references(() => pages.id),
   targetPageId: text('target_page_id').notNull().references(() => pages.id),
   workspaceId: text('workspace_id').notNull().references(() => workspaces.id),

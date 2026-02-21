@@ -6,7 +6,7 @@ import { pages } from './pages';
 import { users } from './users';
 
 export const shares = sqliteTable('shares', {
-  id: text('id').primaryKey().$defaultFn(() => generateUUIDv7()),
+  id: text('id').primaryKey().$defaultFn(() => Bun.randomUUIDv7()),
   key: text('key').notNull(),
   pageId: text('page_id').references(() => pages.id),
   includeSubPages: integer('include_sub_pages', { mode: 'boolean' }),
